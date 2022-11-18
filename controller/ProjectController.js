@@ -1,7 +1,9 @@
 const multer = require('multer');
 const sharp = require('sharp');
 const Project = require("../model/projectModel")
-const catchAsync=require('../util/catch')
+const Admin=require('../model/admin')
+const catchAsync=require('../util/catch');
+const { response } = require('express');
 
 const multerStorage = multer.memoryStorage();
 const multerFilter = (req, file, cb) => {
@@ -21,12 +23,16 @@ const multerFilter = (req, file, cb) => {
   ]);
 
   exports.resizeProjectImages = catchAsync(async (req, res, next) => {
-    console.log(req)
     if (!req.files.images) return next();
   
     //Images
     req.body.images = [];
-  
+    console.log("---------------------------------")
+    console.log("---------------------------------")
+    console.log(req.files)
+
+    console.log("---------------------------------")
+
     await Promise.all(
       req.files.images.map(async (file, i) => {
         const filename = `project-${Date.now()}-${
@@ -47,7 +53,18 @@ const multerFilter = (req, file, cb) => {
   });
 //Update Images
   exports.resizeUpdatedImages = catchAsync(async (req, res, next) => {
-    console.log(req)
+	console.log('-------------------------')
+	console.log('-------------------------')
+	console.log('-------------------------')
+	console.log('-------------------------')
+	console.log('-------------------------')
+	console.log('-------------------------')
+console.log(req.files)	
+	console.log('-------------------------')
+	console.log('-------------------------')
+	console.log('-------------------------')
+	console.log('-------------------------')
+
     if (!req.files.images) return next();
   
     //Images
@@ -88,11 +105,45 @@ exports.deleteProject=catchAsync(async(req,res,next)=>{
     })
 })
 
+exports.login=catchAsync(async(req,res,next)=>{
+  if(req.body.user=='admin'&&req.body.password===process.env.password){
+    res.status(210).json({
+      status:'ok'
+    })
+  }
+  else{
+    console.log(process.env.password)
+    res.status(220).json({
+      status:'not_ok'
+    })
+  }
+
+})
+exports.changePassword=catchAsync(async(req,res,next)=>{
+  if(req.body.user=='admin'&&req.body.password===process.env.password){
+    if(req.body.newpass!=''){
+      process.env.password=req.body.newPass;
+      console.log(process.env.password)
+      res.status(210).json({
+        status:'success'
+      })
+    }
+    else{
+      res.status(435).json({
+        status:'Failed'
+      })
+    }
+  }
+  else{
+    res.status(220).json({
+      status:'failed, Invalid user or old password'
+    })
+  }
+})
 exports.getAll=catchAsync(async(req,res,next)=>{
     const projects=await Project.find()
-    let sortedProjects = projects.sort((r1, r2) => (r1.index > r2.index) ? -1 : (r1.index < r2.index) ? 1 : 0);
+    let sortedProjects = projects.sort((r1, r2) => (Number(r1.index) > Number(r2.index)) ? 1 : (Number(r1.index) < Number(r2.index)) ? -1 : 0);
 
-    console.log("Students sorted based on ascending order of their roll numbers are:")
     
     res.status(210).json({
         data:{
