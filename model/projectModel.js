@@ -6,6 +6,12 @@ const prohectSchema = new mongoose.Schema(
             type:String,
             required:[true,'name cannot be empty']
         },
+	color:{
+		type:String,
+},
+	description:{
+		type:String,
+},
         template:{
             type:String,
         },
