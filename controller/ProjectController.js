@@ -19,7 +19,7 @@ const multerFilter = (req, file, cb) => {
   });
 
   exports.uploadPropertyImages = upload.fields([
-    { name: 'images', maxCount: 6 },
+    { name: 'images', maxCount: 15 },
   ]);
 
   exports.resizeProjectImages = catchAsync(async (req, res, next) => {
@@ -35,13 +35,12 @@ const multerFilter = (req, file, cb) => {
 
     await Promise.all(
       req.files.images.map(async (file, i) => {
+        const ext = file.mimetype.split('/')[1];
         const filename = `project-${Date.now()}-${
           i + 1
-        }.jpeg`;
+        }.${ext}`;
   
         await sharp(file.buffer)
-        //   .resize(2000, 1333)
-          .toFormat('jpeg')
           .jpeg({ quality: 90 })
           .toFile(`public/img/projects/${filename}`);
   
