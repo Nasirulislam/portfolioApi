@@ -8,7 +8,7 @@ const { response } = require('express');
 
 const multerStorage = multer.memoryStorage();
 const videoStorage = multer.diskStorage({
-  destination: 'videos', // Destination to store video 
+  destination: 'public/projects', // Destination to store video 
   filename: (req, file, cb) => {
     var name = file.fieldname + '_' + Date.now()
       + path.extname(file.originalname)
