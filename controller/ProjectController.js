@@ -147,6 +147,45 @@ exports.changePassword = catchAsync(async (req, res, next) => {
     })
   }
 })
+// })
+// title = 'David Ellis'
+// subTitle = 'PHOTOGRAPHER / DIRECTOR'
+// loctText = 'BASED IN VANCOUVER'
+// email = 'EMAIL@THEDAVIDELLIS.COM'
+// instagramUrl = 'https://www.instagram.com/davidellis'
+// repText = '_REPRESENTED BY'
+// repName = "WALTER SCHUPEER MANAGEMENT"
+// repEmail = 'WALTER@WSCHUPFER.COM'
+exports.getAbout = (req, res, next) => {
+  const about={
+    title:process.env.title,
+    detail: process.env.subTitle,
+    locTxt: process.env.loctText,
+    email:process.env.email,
+    instaUrl:process.env.instagramUrl,
+    repTxt:process.env.repText,
+    repName:process.env.repName,
+    repEmail:process.env.repEmail
+  }
+}
+exports.updateAbout=(req,res,next)=>{
+  process.env.title = req.body.title || '';
+  process.env.subTitle = req.body.detail || ''
+  process.env.loctText = req.body.locTxt || ''
+  process.env.email = req.body.email || ''
+  process.env.instagramUrl = req.body.instaUrl || ''
+  process.env.repText = req.body.repTxt || ''
+  process.env.repName = req.body.repName || ''
+  process.env.repEmail = req.body.repEmail || ''
+
+
+  res.status(210).json({
+    data: {
+      msg:'successfully updated'
+    }
+  })
+}
+
 exports.getAll = catchAsync(async (req, res, next) => {
   const projects = await Project.find()
   let sortedProjects = projects.sort((r1, r2) => (Number(r1.index) > Number(r2.index)) ? 1 : (Number(r1.index) < Number(r2.index)) ? -1 : 0);
