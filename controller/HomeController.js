@@ -34,10 +34,10 @@ exports.uploadPropertyImages = upload.fields([
 ]);
 
 exports.createProject = catchAsync(async (req, res, next) => {
-    const Home = await Home.create(req.body);
+    const home = await Home.create(req.body);
     res.status(200).json({
         data: {
-            Home
+            home
         }
     })
 })
@@ -50,22 +50,22 @@ exports.deleteProject = catchAsync(async (req, res, next) => {
     })
 })
 exports.getAll = catchAsync(async (req, res, next) => {
-    const Home = await Home.find()
+    const home = await Home.find()
 
 
     res.status(210).json({
         data: {
-            Home
+            home
         }
     })
 })
 exports.updateProject = catchAsync(async (req, res, next) => {
-    const Home = await Home.findByIdAndUpdate(req.params.id, req.body, {
+    const home = await Home.findByIdAndUpdate(req.params.id, req.body, {
         new: true
     })
     res.status(225).json({
         data: {
-            Home
+            home
         }
     })
 })
