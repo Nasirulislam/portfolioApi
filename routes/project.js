@@ -22,7 +22,7 @@ router.route('/home').get(home.getAll)
 router.route('/home').post(home.uploadPropertyImages, home.createProject)
 router.route('/home').patch(home.uploadPropertyImages, home.updateProject)
 router.route('/home').put(home.updateProject)
-router.route('/home/:id').delete(home.deleteProject)
+router.route('/home/:id').delete(home.deleteProject).patch(home.uploadPropertyImages, home.updateProject)
 
 
 
