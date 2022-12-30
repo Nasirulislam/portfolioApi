@@ -167,6 +167,9 @@ exports.getAbout = (req, res, next) => {
     repName:process.env.repName,
     repEmail:process.env.repEmail
   }
+  res.status(210).json({
+    data: about
+  })
 }
 exports.updateAbout=(req,res,next)=>{
   process.env.title = req.body.title || '';
