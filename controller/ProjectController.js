@@ -15,7 +15,7 @@ const videoStorage = multer.diskStorage({
     console.log(req.body)
     req.body.images.push(name)
     cb(null, name)
-    console.log(req.body)
+    // console.log(req.body)
 
     // req.body.images.push(name)
 

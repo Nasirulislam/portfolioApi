@@ -4,7 +4,7 @@ const createProject =require('../controller/ProjectController')
 const home = require('../controller/HomeController')
 const router = express.Router();
 
-router.route('/new').post( createProject.myDummyFunc,createProject.uploadPropertyImages,createProject.createProject)
+router.route('/new').post( createProject.uploadPropertyImages,createProject.createProject)
 router.route('/:id').delete(createProject.deleteProject)
 .patch(createProject.updateProject)
 .put(createProject.uploadPropertyImages,createProject.updateProject)
