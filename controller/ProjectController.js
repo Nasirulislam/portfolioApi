@@ -13,6 +13,9 @@ const videoStorage = multer.diskStorage({
     var name = file.fieldname + '_' + Date.now()
       + path.extname(file.originalname)
     console.log(req.body)
+	if(req.body.images[0]==''){
+	req.body.images.splice(0,1)
+}
     req.body.images.push(name)
     cb(null, name)
     // console.log(req.body)
