@@ -1,8 +1,10 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+var cors = require('cors')
 const app = express();
 const router =require('./routes/project')
+app.use(cors())
 app.use(express.json());
 app.use((req, res, next) => {
     console.log("Hello from the middleware 👋");
