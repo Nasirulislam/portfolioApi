@@ -3,6 +3,7 @@ const path = require('path');
 const Home = require('../model/home')
 const catchAsync = require('../util/catch');
 const { response } = require('express');
+const AppError = require('../util/appError');
 const videoStorage = multer.diskStorage({
     destination: 'public/home', // Destination to store video 
     filename: (req, file, cb) => {
