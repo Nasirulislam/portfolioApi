@@ -29,14 +29,14 @@ exports.myDummyFunc = (req, res, next) => {
   // req.body.images=[]
   next()
 }
-const multerFilter = (req,res, file, cb) => {
+const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image') || file.mimetype.startsWith('video')) {
     cb(null, true);
   } else {
-    // cb(new AppError('Not an image! Please upload only images.', 400), false);
-    res.status(403).json({
-      message:"Not a allowed format"
-    })
+    cb(new AppError('Not an image! Please upload only images.', 400), false);
+    // res.status(403).json({
+    //   message:"Not a allowed format"
+    // })
   }
 };
 const upload = multer({
